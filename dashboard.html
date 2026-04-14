@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AI Learning Dashboard 2050</title>
+    <script>
+        if (!localStorage.getItem("loggedIn")) {
+            window.location.href = "login.html";
+        }
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+        }
+        /* HEADER */
+        
+        header {
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        /* NAVBAR */
+        
+        nav {
+            background: black;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        nav a {
+            color: white;
+            margin: 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        
+        nav a:hover {
+            color: cyan;
+        }
+        /* GRID */
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        /* CARD */
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+        /* BUTTON */
+        
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            background: cyan;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        /* HIDDEN SECTION */
+        
+        .hidden {
+            display: none;
+        }
+        /* CHAT */
+        
+        .chatbox {
+            height: 150px;
+            overflow-y: auto;
+            background: #111;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        🤖 AI Smart Learning System (2050)
+        <button onclick="logout()" style="float:right;margin:10px;">Logout</button>
+    </header>
+
+    <nav>
+        <a href="#">Dashboard</a>
+        <a href="#" onclick="showSection('learn')">Learn</a>
+        <a href="#" onclick="showSection('tutorial')">Tutorials</a>
+        <a href="#" onclick="showSection('ai')">AI Assistant</a>
+    </nav>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="dashboard">
+
+        <div class="card">
+            <h2>👤 Profile</h2>
+            <p>Name: Ujala Yadav</p>
+            <p>Course: AI & Psychology</p>
+        </div>
+
+        <div class="card">
+            <h2>📊 Progress</h2>
+            <p>Completion: 70%</p>
+        </div>
+
+        <div class="card">
+            <h2>🧠 AI Suggestions</h2>
+            <ul>
+                <li>Start Machine Learning</li>
+                <li>Revise Python</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- LEARN SECTION -->
+    <div id="learn" class="hidden dashboard">
+
+        <div class="card">
+            <h2>📚 Choose Chapter</h2>
+            <button onclick="startChapter('Machine Learning')">Machine Learning</button>
+            <button onclick="startChapter('Neural Networks')">Neural Networks</button>
+            <button onclick="startChapter('Data Science')">Data Science</button>
+        </div>
+
+        <div class="card">
+            <h2>📖 Chapter Content</h2>
+            <p id="chapterContent">Select a chapter to start learning...</p>
+        </div>
+
+    </div>
+
+    <!-- TUTORIAL SECTION -->
+    <div id="tutorial" class="hidden dashboard">
+
+        <div class="card">
+            <h2>🎥 Tutorials</h2>
+            <button onclick="openTutorial('AI Basics Video')">AI Basics</button>
+            <button onclick="openTutorial('Python Coding Video')">Python Coding</button>
+        </div>
+
+        <div class="card">
+            <h2>📺 Tutorial Viewer</h2>
+            <p id="tutorialContent">Select a tutorial...</p>
+        </div>
+
+    </div>
+
+    <!-- AI SECTION -->
+    <div id="ai" class="hidden dashboard">
+
+        <div class="card">
+            <h2>💬 AI Assistant</h2>
+            <div class="chatbox" id="chatbox">
+                <p>AI: Ask me anything about your subject!</p>
+            </div>
+            <input type="text" id="userInput" placeholder="Ask a question...">
+            <button onclick="sendMessage()">Ask AI</button>
+        </div>
+
+    </div>
+
+    <script>
+        /* NAVIGATION */
+        function showSection(section) {
+            document.getElementById("dashboard").style.display = "none";
+            document.getElementById("learn").style.display = "none";
+            document.getElementById("tutorial").style.display = "none";
+            document.getElementById("ai").style.display = "none";
+
+            document.getElementById(section).style.display = "grid";
+        }
+
+        /* CHAPTER FUNCTION */
+        function startChapter(chapter) {
+            document.getElementById("chapterContent").innerText =
+                "You are now learning: " + chapter + ". AI is generating content for you...";
+        }
+
+        /* TUTORIAL FUNCTION */
+        function openTutorial(video) {
+            document.getElementById("tutorialContent").innerText =
+                "Now playing: " + video;
+        }
+
+        /* AI CHAT */
+        function sendMessage() {
+            let input = document.getElementById("userInput").value;
+            let chatbox = document.getElementById("chatbox");
+
+            if (input.trim() === "") return;
+
+            chatbox.innerHTML += "<p>You: " + input + "</p>";
+            chatbox.innerHTML += "<p>AI: Generating smart answer...</p>";
+
+            document.getElementById("userInput").value = "";
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+    </script>
+
+</body>
+
+</html>
